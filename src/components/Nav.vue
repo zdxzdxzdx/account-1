@@ -45,7 +45,7 @@
 
         }
         >.item.selected {
-            color: $color-highlight;
+            color: #F0DE38;
         }
     }
 
