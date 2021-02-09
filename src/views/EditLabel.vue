@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts">
-  import {Component} from 'vue-property-decorator';
+  import  {Component} from 'vue-property-decorator';
   import Vue from 'vue';
   import tagListModel from '@/models/tagListModel';
   import FormItem from '@/components/Money/FormItem.vue';
@@ -45,7 +45,11 @@
     }
     remove(){
       if (this.tag) {
-        tagListModel.remove(this.tag.id);
+       if ( tagListModel.remove(this.tag.id)){
+         this.$router.back();
+       }else {
+            window.alert("删除成功");
+       }
       }
     }
     goBack(){
