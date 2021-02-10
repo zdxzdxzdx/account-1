@@ -25,7 +25,7 @@
        createTag(){
          const name = window.prompt('请输入标签名');
          if (name){
-         window.createTag(name)
+         window.createTag(name);
          }
        }
 

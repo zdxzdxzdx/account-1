@@ -15,10 +15,15 @@ type TagListModel={
   create: (name: string) => 'success' | 'duplicated';
   save: () => void;
   update: (id: string, name: string) => 'success'| 'not found'|'duplicated';
-  remove: (id: string) => 'success' | boolean;
+  remove: (id: string) =>  boolean;
 }
 
 interface Window {
   tagList: Tag[];
+  findTag: (id: string) => Tag | undefined;
   createTag: (name: string) => void;
+  removeTag: (id: string) => boolean;
+  updateTag: (id: string,name: string) => 'success'| 'not found'|'duplicated';
+  recordList: RecordItem[];
+  createRecord: (record: RecordItem) => void;
 }
