@@ -22,9 +22,6 @@
   import Button from '@/components/Button.vue';
   @Component({
     components: {Button, FormItem},
-    computed: {
-
-    }
   })
   export default class EditLabel extends Vue {
     get tag(){
