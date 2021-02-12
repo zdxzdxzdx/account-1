@@ -21,12 +21,19 @@
   import FormItem from '@/components/Money/FormItem.vue';
   import Button from '@/components/Button.vue';
   @Component({
-    components: {Button, FormItem}
+    components: {Button, FormItem},
+    computed: {
+
+    }
   })
   export default class EditLabel extends Vue {
-    tag?: Tag = undefined;
+    get tag(){
+      return this.$store.state.currentTag
+    }
+
     created(){
-      this.tag = window.findTag(this.$route.params.id);
+      const id= this.$route.params.id;
+      this.$store.commit('setCurrentTag',id)
       if (!this.tag){
         this.$router.replace('/404')
       }
@@ -34,22 +41,24 @@
 
     update(name: string){
       if (this.tag) {
-        window.updateTag(this.tag.id,name)
+        //store.updateTag(this.tag.id,name)
       }
     }
-    remove(){
-      if (this.tag) {
-       if ( window.removeTag(this.tag.id)){
-         this.$router.back();
-       }else {
-            window.alert("删除失败");
-       }
-      }
+    //TODO
+    remove() {
+      //   if (this.tag) {
+      //   if ( store.removeTag(this.tag.id))
+      //   {
+      //      this.$router.back();
+      //    }else {
+      //         window.alert("删除失败");
+      //    }
+      //   }
+      // }
+      // goBack(){
+      //   this.$router.back();
+      // }
     }
-    goBack(){
-      this.$router.back();
-    }
-
   }
 </script>
 
