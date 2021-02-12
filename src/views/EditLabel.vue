@@ -7,7 +7,7 @@
     </div>
         <div class="form-wrapper" >
         <FormItem field-name="标签名" placeholder="请输入标签名"
-                  :value="tag.name" @update:value="updateTag"/>
+                  :value="tag.name" @update:value="update"/>
         </div>
         <div class="button-wrapper">
             <Button @click.native="remove">删除标签</Button>
@@ -29,6 +29,7 @@
     }
     created(){
       const id= this.$route.params.id;
+      this.$store.commit('fetchTags')
       this.$store.commit('setCurrentTag',id)
       if (!this.tag){
         this.$router.replace('/404')
@@ -37,20 +38,16 @@
 
     update(name: string){
       if (this.tag) {
-        //store.updateTag(this.tag.id,name)
+        if (this.tag){
+          this.$store.commit('updateTag',{id:this.tag.id,name})
+        }
       }
     }
-    //TODO
+
     remove() {
-      //   if (this.tag) {
-      //   if ( store.removeTag(this.tag.id))
-      //   {
-      //      this.$router.back();
-      //    }else {
-      //         window.alert("删除失败");
-      //    }
-      //   }
-      // }
+         if (this.tag) {
+         this.$store.commit('removeTag',this.tag.id)
+       }
       // goBack(){
       //   this.$router.back();
       // }
