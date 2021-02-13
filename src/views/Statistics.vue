@@ -37,7 +37,6 @@
     ::v-deep {
         .type-tabs-item {
             background: white;
-
             &.selected {
                 background: #C4C4C4;
 
@@ -47,7 +46,8 @@
             }
         }
            .interval-tabs-item {
-            height: 48px;
+              /*height: 48px;*/
+              /* background: red;*/
         }
     }
 
