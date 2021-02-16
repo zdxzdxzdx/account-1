@@ -4,9 +4,6 @@
     <hr>
   </div>
 </template>
-<script>
-
-</script>
 
 <style lang="scss">
   @import "~@/assets/style/helper.scss";
