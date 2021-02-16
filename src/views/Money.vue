@@ -4,9 +4,14 @@
         <NumberPad @update:value="onUpdateNumberPad" @submit="saveRecord"/>
         <Tabs :data-source="recordTypeList" :value.sync="record.type"/>
         <div class="notes">
-        <FormItem @update:value="onUpdateNotes" field-name="备注" placeholder="请输入备注名"/>
+        <FormItem @update:value="onUpdateNotes"
+                  field-name="备注"
+                  :value="record.notes"
+                  placeholder="请输入备注名"
+
+        />
         </div>
-        <Tags />
+        <Tags @update:value="record.tags = $event"/>
     </Layout>
 </template>
 
@@ -51,10 +56,16 @@
     }
 
     saveRecord(){
+      if (!this.record.tags || this.record.tags.length === 0){
+        window.alert('请至少选择一个标签');
+        return;
+      }
        this.$store.commit('createRecord',this.record);
+
+        if ( this.$store.state.createRecordError === null){
+          window.alert("已保存")
+        }
     }
-
-
   }
 </script>
 <style lang="scss" scoped>

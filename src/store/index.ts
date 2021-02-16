@@ -5,18 +5,16 @@ import createId from '@/lib/createId';
 import router from '@/router';
 
 Vue.use(Vuex);
-type RootState = {
-  recordList: RecordItem[];
-  tagList: Tag[];
-  currentTag?: Tag;
-}
 
 const store = new Vuex.Store({
   state: {
-    recordList: [] as RecordItem[],
+    recordList: [] ,
+    createRecordError: null,
+    createTagError:null,
     tagList: [] as Tag[],
     currentTag: undefined
   } as RootState,
+
   mutations: {
     setCurrentTag(state, id: string) {
       state.currentTag = state.tagList.filter(t => t.id === id)[0];
@@ -25,30 +23,37 @@ const store = new Vuex.Store({
     fetchRecords(state) {
       state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
-    createRecord(state, record) {
+    createRecord(state, record: RecordItem) {
       const record2: RecordItem = clone(record);
       record2.createdAt = new Date().toISOString();
       state.recordList.push(record2);
       store.commit('saveRecords');
+      // window.alert('已保存');
     },
 
     saveRecords(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
     },
     fetchTags(state) {
-      return state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+      if (!state.tagList || state.tagList.length ===0){
+        store.commit('createTag','衣')
+        store.commit('createTag','食')
+        store.commit('createTag','住')
+        store.commit('createTag','行')
 
+      }
     },
     createTag(state, name: string) {
+      state.createTagError= null;
       const names = state.tagList.map(item => item.name);
       if (names.indexOf(name) >= 0) {
-        return 'duplicated';
+        state.createTagError = new Error('tag name duplicated')
+        return ;
       }
       const id = createId().toString();
       state.tagList.push({id, name: name});
       store.commit('saveTags');
-      window.alert('添加成功');
-      return 'success';
     },
     saveTags(state) {
       window.localStorage.setItem('tagList', JSON.stringify(state.tagList));

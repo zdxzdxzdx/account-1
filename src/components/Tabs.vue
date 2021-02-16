@@ -2,7 +2,6 @@
     <div>
         <ul class="tabs">
             <li v-for="item in dataSource" :key="item.value" class="tab-item"
-
             :class="liClass(item)" @click="select(item)">{{item.text}}</li>
         </ul>
     </div>
@@ -38,6 +37,7 @@
 
     .tabs {
         background: #C4C4C4;
+
         display: flex;
         text-align: center;
         font-size: 24px;
@@ -48,7 +48,7 @@
             justify-content: center;
             align-items: center;
             position: relative;
-
+            background: #F0DE38;
             &.selected::after {
                 content: '';
                 position: absolute;
